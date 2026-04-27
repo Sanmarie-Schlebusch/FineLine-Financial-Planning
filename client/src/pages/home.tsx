@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "wouter";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -16,7 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
-import heroImage from "@/assets/hero-finance.png";
+import heroImage from "@/assets/team-meeting_3.jpg";
 import team1 from "@/assets/team-meeting_1.jpg";
 import team2 from "@/assets/team-meeting_2.jpg";
 import team3 from "@/assets/team-meeting_3.jpg";
@@ -104,6 +105,9 @@ export default function Home() {
             <a className="transition-colors hover:text-foreground" href="#services" data-testid="link-services">Services</a>
             <a className="transition-colors hover:text-foreground" href="#process" data-testid="link-process">Process</a>
             <a className="transition-colors hover:text-foreground" href="#faq" data-testid="link-faq">FAQ</a>
+            <Link className="transition-colors hover:text-foreground" href="/blog" data-testid="link-blog">
+              Blog
+            </Link>
           </nav>
 
           <div className="flex items-center gap-2" data-testid="actions-header">
@@ -120,28 +124,8 @@ export default function Home() {
       </header>
 
       <main>
-        {/* Trust Bar */}
-        <div className="bg-primary py-4 shadow-sm relative z-10">
-          <div className="container-page flex flex-wrap justify-center gap-8 md:gap-24 items-center">
-            <div className="flex items-center gap-3 font-bold headline text-lg text-secondary">
-              <div className="bg-white/10 p-2 rounded-lg">
-                <Users className="size-5 text-secondary" />
-              </div>
-              500+ Clients
-            </div>
-            <div className="flex items-center gap-3 font-bold headline text-lg text-secondary">
-              <div className="bg-white/10 p-2 rounded-lg">
-                <Shield className="size-5 text-secondary" />
-              </div>
-              FSCA Regulated
-            </div>
-            <div className="flex items-center gap-3 font-bold headline text-lg text-secondary">
-              <div className="bg-white/10 p-2 rounded-lg">
-                <Clock className="size-5 text-secondary" />
-              </div>
-              15+ Yrs Exp
-            </div>
-          </div>
+        {/* Trust Bar - Clean Blue Separator */}
+        <div className="bg-primary h-2 shadow-sm relative z-10" data-testid="trust-bar">
         </div>
 
         <section className="container-page pt-12 md:pt-16" data-testid="section-hero">
@@ -195,13 +179,108 @@ export default function Home() {
               className="relative overflow-hidden rounded-3xl"
               data-testid="card-hero"
             >
-              <img src={heroImage} alt="Modern Financial Office" className="h-full w-full object-cover" />
+              <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80" alt="Family financial planning meeting" className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
               <div className="absolute bottom-0 p-6 text-white">
                 <div className="headline text-2xl font-bold">Your future, planned.</div>
                 <p className="mt-2 text-sm text-white/80">Expert guidance for every stage of your financial journey.</p>
               </div>
             </motion.div>
+          </div>
+        </section>
+
+        {/* Profile Section */}
+        <section className="container-page mt-16 md:mt-24" data-testid="section-profile">
+          <div className="grid items-center gap-12 md:grid-cols-2">
+            <motion.div
+              initial="initial"
+              animate="animate"
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              variants={fadeUp}
+            >
+              <div className="text-sm text-muted-foreground uppercase tracking-wider font-bold" data-testid="profile-kicker">Meet Your Advisor</div>
+              <h2 className="headline mt-2 text-3xl md:text-4xl font-semibold" data-testid="profile-title">
+                [Advisor Name]
+              </h2>
+              <p className="mt-4 text-muted-foreground leading-relaxed" data-testid="profile-bio">
+                With over 15 years of experience in financial planning, I specialize in helping families build secure futures. 
+                My approach combines personalized strategies with ongoing support to ensure your financial goals are not just met, but exceeded.
+              </p>
+              <div className="mt-6 space-y-2" data-testid="profile-qualifications">
+                <div className="flex items-center gap-2 text-sm">
+                  <BadgeCheck className="size-4 text-primary" />
+                  <span>Certified Financial Planner (CFP®)</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <BadgeCheck className="size-4 text-primary" />
+                  <span>FSCA Registered Financial Services Provider</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <BadgeCheck className="size-4 text-primary" />
+                  <span>Member of Financial Planning Institute</span>
+                </div>
+              </div>
+              <div className="mt-8" data-testid="profile-cta">
+                <Button className="group" data-testid="button-profile-cta">
+                  Schedule a Consultation
+                  <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+                </Button>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="relative"
+            >
+              <div className="aspect-square rounded-3xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center" data-testid="profile-image-placeholder">
+                <div className="text-center">
+                  <div className="text-6xl mb-4">👤</div>
+                  <div className="text-sm text-muted-foreground">[Profile Image Placeholder]</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Philosophy Section */}
+        <section className="container-page mt-16 md:mt-24" data-testid="section-philosophy">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="headline text-3xl md:text-4xl font-semibold" data-testid="philosophy-title">
+              Our Philosophy
+            </h2>
+            <p className="mt-4 text-muted-foreground leading-relaxed" data-testid="philosophy-subtitle">
+              Building lasting relationships through tailored financial guidance that puts your family's future first.
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            <Card className="rounded-3xl border bg-card/60 p-8 shadow-sm text-center" data-testid="philosophy-card-1">
+              <div className="size-12 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
+                <Users className="size-6 text-primary" />
+              </div>
+              <h3 className="headline text-xl font-bold mb-4" data-testid="philosophy-card-title-1">Tailored Advice</h3>
+              <p className="text-muted-foreground leading-relaxed" data-testid="philosophy-card-desc-1">
+                Every family is unique. We create personalized financial plans that adapt to your specific circumstances, goals, and risk tolerance.
+              </p>
+            </Card>
+            <Card className="rounded-3xl border bg-card/60 p-8 shadow-sm text-center" data-testid="philosophy-card-2">
+              <div className="size-12 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
+                <Shield className="size-6 text-primary" />
+              </div>
+              <h3 className="headline text-xl font-bold mb-4" data-testid="philosophy-card-title-2">Built on Trust</h3>
+              <p className="text-muted-foreground leading-relaxed" data-testid="philosophy-card-desc-2">
+                Transparency and integrity are at the core of everything we do. We believe in clear communication and honest guidance you can rely on.
+              </p>
+            </Card>
+            <Card className="rounded-3xl border bg-card/60 p-8 shadow-sm text-center" data-testid="philosophy-card-3">
+              <div className="size-12 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
+                <Clock className="size-6 text-primary" />
+              </div>
+              <h3 className="headline text-xl font-bold mb-4" data-testid="philosophy-card-title-3">Long-Term Relationships</h3>
+              <p className="text-muted-foreground leading-relaxed" data-testid="philosophy-card-desc-3">
+                We're here for the journey. Regular reviews and ongoing support ensure your plan evolves with your life, providing peace of mind for years to come.
+              </p>
+            </Card>
           </div>
         </section>
 
@@ -301,6 +380,52 @@ export default function Home() {
               author="Linda W."
               role="Retired Professional"
             />
+          </div>
+        </section>
+
+        {/* Blog Section */}
+        <section className="container-page mt-16 md:mt-32" data-testid="section-blog">
+          <div className="flex items-end justify-between gap-6 mb-12">
+            <div>
+              <div className="text-sm text-muted-foreground" data-testid="blog-kicker">Insights & Articles</div>
+              <h2 className="headline mt-2 text-2xl font-semibold md:text-4xl" data-testid="blog-title">
+                Financial Planning Insights
+              </h2>
+            </div>
+            <a
+              href="#"
+              className="hidden items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:flex"
+              data-testid="blog-view-all"
+            >
+              View all articles <ChevronRight className="size-4" />
+            </a>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3" data-testid="blog-grid">
+            {[1, 2, 3].map((i) => (
+              <Card key={i} className="rounded-3xl border bg-card/60 overflow-hidden shadow-sm group hover:shadow-xl transition-all" data-testid={`blog-card-${i}`}>
+                <div className="aspect-video bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center" data-testid={`blog-image-${i}`}>
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">📊</div>
+                    <div className="text-xs text-muted-foreground">[Featured Image {i}]</div>
+                  </div>
+                </div>
+                <div className="p-6" data-testid={`blog-content-${i}`}>
+                  <h3 className="headline text-lg font-bold mb-3 group-hover:text-primary transition-colors" data-testid={`blog-title-${i}`}>
+                    {i === 1 && "Understanding Retirement Planning Basics"}
+                    {i === 2 && "Investment Strategies for Growing Families"}
+                    {i === 3 && "Risk Management: Protecting What Matters Most"}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4" data-testid={`blog-summary-${i}`}>
+                    {i === 1 && "Learn the fundamental principles of retirement planning and how to start building a secure future for yourself and your loved ones."}
+                    {i === 2 && "Discover investment approaches that balance growth potential with the stability needed for family financial planning."}
+                    {i === 3 && "Explore essential risk management strategies to protect your family's financial wellbeing against life's uncertainties."}
+                  </p>
+                  <Button variant="ghost" size="sm" className="p-0 h-auto font-semibold text-primary hover:text-primary/80" data-testid={`blog-read-more-${i}`}>
+                    Read More <ArrowUpRight className="ml-1 size-3" />
+                  </Button>
+                </div>
+              </Card>
+            ))}
           </div>
         </section>
 
@@ -408,6 +533,18 @@ export default function Home() {
                 <a href="#services" className="transition-colors hover:text-foreground" data-testid="link-footer-services">Services</a>
                 <a href="#process" className="transition-colors hover:text-foreground" data-testid="link-footer-process">Process</a>
                 <a href="#faq" className="transition-colors hover:text-foreground" data-testid="link-footer-faq">FAQ</a>
+                <Link className="transition-colors hover:text-foreground" href="/blog" data-testid="link-footer-blog">Blog</Link>
+                <div className="mt-4 pt-4 border-t border-muted-foreground/20" data-testid="footer-compliance">
+                  <div className="flex items-center gap-3 mb-2" data-testid="footer-brokerage">
+                    <div className="size-8 bg-muted rounded flex items-center justify-center text-xs font-bold" data-testid="brokerage-logo-placeholder">
+                      LOGO
+                    </div>
+                    <span className="text-xs">Affiliated Brokerage</span>
+                  </div>
+                  <div className="text-xs" data-testid="footer-fsp">
+                    FSP Number: [FSP-XXXXXX]
+                  </div>
+                </div>
               </div>
             </div>
 
