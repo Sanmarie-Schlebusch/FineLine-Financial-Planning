@@ -22,6 +22,7 @@ import team1 from "@/assets/team-meeting_1.jpg";
 import team2 from "@/assets/team-meeting_2.jpg";
 import team3 from "@/assets/team-meeting_3.jpg";
 import logoImage from "@/assets/logo-fineline.png";
+import profileImage from "@/assets/profile.png";
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
@@ -198,28 +199,17 @@ export default function Home() {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               variants={fadeUp}
             >
-              <div className="text-sm text-muted-foreground uppercase tracking-wider font-bold" data-testid="profile-kicker">Meet Your Advisor</div>
+              <div className="text-sm text-muted-foreground uppercase tracking-wider font-bold" data-testid="profile-kicker">Holistic financial planning</div>
               <h2 className="headline mt-2 text-3xl md:text-4xl font-semibold" data-testid="profile-title">
-                [Advisor Name]
+                Travis Allen
               </h2>
               <p className="mt-4 text-muted-foreground leading-relaxed" data-testid="profile-bio">
-                With over 15 years of experience in financial planning, I specialize in helping families build secure futures. 
-                My approach combines personalized strategies with ongoing support to ensure your financial goals are not just met, but exceeded.
+                There are some questions that Google can't answer. But more importantly — there are some things that Google can't ask you! With the increasing automation around us, we need to choose to have people in our lives who build relationships of trust and can help us ask the right questions about our futures.
               </p>
-              <div className="mt-6 space-y-2" data-testid="profile-qualifications">
-                <div className="flex items-center gap-2 text-sm">
-                  <BadgeCheck className="size-4 text-primary" />
-                  <span>Certified Financial Planner (CFP®)</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <BadgeCheck className="size-4 text-primary" />
-                  <span>FSCA Registered Financial Services Provider</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <BadgeCheck className="size-4 text-primary" />
-                  <span>Member of Financial Planning Institute</span>
-                </div>
-              </div>
+              <p className="mt-4 text-muted-foreground leading-relaxed">
+                As a financial advisor, this is what I'm good at. It's not about what financial products you choose, or what investment vehicles you select; it's about why you make those choices, and knowing exactly what choices may serve you and your family best.
+              </p>
+              <div className="mt-4 text-sm font-semibold text-primary">Financial Advisor</div>
               <div className="mt-8" data-testid="profile-cta">
                 <Button className="group" data-testid="button-profile-cta">
                   Schedule a Consultation
@@ -233,11 +223,12 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="relative"
             >
-              <div className="aspect-square rounded-3xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center" data-testid="profile-image-placeholder">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">👤</div>
-                  <div className="text-sm text-muted-foreground">[Profile Image Placeholder]</div>
-                </div>
+              <div className="aspect-square rounded-3xl overflow-hidden" data-testid="profile-image-placeholder">
+                <img 
+                  src={profileImage} 
+                  alt="Profile" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </motion.div>
           </div>
