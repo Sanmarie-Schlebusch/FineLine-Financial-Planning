@@ -1,10 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "wouter";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import logoImage from "@/assets/logo-fineline.png";
 import { getBlogPost } from "@/data/blogs";
+
+function BlogHeader() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  return (
+    <header className="sticky top-0 z-40 border-b bg-background/70 backdrop-blur">
+      <div className="container-page flex h-16 items-center justify-between">
+        <Link href="/" className="flex items-center gap-3">
+          <img src={logoImage} alt="FineLine Logo" className="size-10 rounded-xl object-cover shadow-sm" />
+          <div className="leading-tight">
+            <div className="headline text-[15px] font-semibold">FineLine</div>
+            <div className="text-xs text-muted-foreground">Financial Planning</div>
+          </div>
+        </Link>
+
+        <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
+          <Link className="transition-colors hover:text-foreground" href="/">Home</Link>
+          <Link className="transition-colors hover:text-foreground" href="/services">Services</Link>
+          <Link className="font-semibold text-foreground" href="/blog">Blog</Link>
+        </nav>
+
+        {/* Desktop actions */}
+        <div className="hidden md:flex items-center gap-2">
+          <Button variant="ghost" asChild>
+            <Link href="/book">Book a call <ArrowRight className="ml-1 size-4" /></Link>
+          </Button>
+          <Button className="group" asChild>
+            <Link href="/book">Get a plan <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" /></Link>
+          </Button>
+        </div>
+
+        {/* Mobile actions */}
+        <div className="flex md:hidden items-center gap-2">
+          <Button size="sm" asChild>
+            <Link href="/book">Book</Link>
+          </Button>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="rounded-lg p-2 hover:bg-muted transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile nav drawer */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t bg-background/95 backdrop-blur">
+          <nav className="container-page flex flex-col py-4 gap-1">
+            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm hover:bg-muted transition-colors">Home</Link>
+            <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm hover:bg-muted transition-colors">Services</Link>
+            <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm hover:bg-muted transition-colors">Blog</Link>
+            <div className="mt-2 pt-2 border-t">
+              <Button className="w-full group" asChild>
+                <Link href="/book" onClick={() => setMobileMenuOpen(false)}>
+                  Book a free consultation
+                  <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </Button>
+            </div>
+          </nav>
+        </div>
+      )}
+    </header>
+  );
+}
 
 export default function BlogPost() {
   const params = useParams();
@@ -14,46 +80,7 @@ export default function BlogPost() {
   if (!post) {
     return (
       <div className="min-h-screen bg-noise">
-        <header className="sticky top-0 z-40 border-b bg-background/70 backdrop-blur">
-          <div className="container-page flex h-16 items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img
-                src={logoImage}
-                alt="FineLine Logo"
-                className="size-10 rounded-xl object-cover shadow-sm"
-              />
-              <div className="leading-tight">
-                <div className="headline text-[15px] font-semibold">FineLine</div>
-                <div className="text-xs text-muted-foreground">Financial Planning</div>
-              </div>
-            </div>
-
-            <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
-              <Link className="transition-colors hover:text-foreground" href="/">
-                Home
-              </Link>
-              <Link className="transition-colors hover:text-foreground" href="/blog">
-                Blog
-              </Link>
-            </nav>
-
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" className="hidden md:inline-flex" asChild>
-                <Link href="/book">
-                  Book a call
-                  <ArrowRight className="ml-1 size-4" />
-                </Link>
-              </Button>
-              <Button className="group" asChild>
-                <Link href="/book">
-                  Get a plan
-                  <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </header>
-
+        <BlogHeader />
         <main className="container-page pt-12 pb-16">
           <div className="text-center">
             <h1 className="headline text-4xl font-semibold">Post not found</h1>
@@ -69,45 +96,7 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen bg-noise">
-      <header className="sticky top-0 z-40 border-b bg-background/70 backdrop-blur">
-        <div className="container-page flex h-16 items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img
-              src={logoImage}
-              alt="FineLine Logo"
-              className="size-10 rounded-xl object-cover shadow-sm"
-            />
-            <div className="leading-tight">
-              <div className="headline text-[15px] font-semibold">FineLine</div>
-              <div className="text-xs text-muted-foreground">Financial Planning</div>
-            </div>
-          </div>
-
-          <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
-            <Link className="transition-colors hover:text-foreground" href="/">
-              Home
-            </Link>
-            <Link className="transition-colors hover:text-foreground" href="/blog">
-              Blog
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" className="hidden md:inline-flex" asChild>
-              <Link href="/book">
-                Book a call
-                <ArrowRight className="ml-1 size-4" />
-              </Link>
-            </Button>
-            <Button className="group" asChild>
-              <Link href="/book">
-                Get a plan
-                <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <BlogHeader />
 
       <main>
         {/* Full-bleed hero image */}

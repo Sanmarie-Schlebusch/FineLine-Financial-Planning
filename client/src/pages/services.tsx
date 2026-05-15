@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "wouter";
-import { ArrowRight, BarChart3, Calendar, Shield, Users, CheckCircle2, ChevronRight } from "lucide-react";
+import { ArrowRight, BarChart3, Calendar, Shield, Users, CheckCircle2, ChevronRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -16,6 +16,7 @@ const ICON_MAP: Record<string, React.ReactNode> = {
 };
 
 function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 border-b bg-background/70 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between">
@@ -31,15 +32,47 @@ function Header() {
           <Link className="font-semibold text-foreground" href="/services">Services</Link>
           <Link className="transition-colors hover:text-foreground" href="/blog">Blog</Link>
         </nav>
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" className="hidden md:inline-flex" asChild>
+        {/* Desktop actions */}
+        <div className="hidden md:flex items-center gap-2">
+          <Button variant="ghost" asChild>
             <Link href="/book">Book a call <ArrowRight className="ml-1 size-4" /></Link>
           </Button>
           <Button asChild className="group">
             <Link href="/book">Get a plan <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" /></Link>
           </Button>
         </div>
+        {/* Mobile actions */}
+        <div className="flex md:hidden items-center gap-2">
+          <Button size="sm" asChild>
+            <Link href="/book">Book</Link>
+          </Button>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="rounded-lg p-2 hover:bg-muted transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </div>
+      {/* Mobile nav drawer */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t bg-background/95 backdrop-blur">
+          <nav className="container-page flex flex-col py-4 gap-1">
+            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm hover:bg-muted transition-colors">Home</Link>
+            <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm hover:bg-muted transition-colors">Services</Link>
+            <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm hover:bg-muted transition-colors">Blog</Link>
+            <div className="mt-2 pt-2 border-t">
+              <Button className="w-full group" asChild>
+                <Link href="/book" onClick={() => setMobileMenuOpen(false)}>
+                  Book a free consultation
+                  <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </Button>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

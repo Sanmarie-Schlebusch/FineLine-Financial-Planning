@@ -7,11 +7,13 @@ import {
   BarChart3,
   Calendar,
   ChevronRight,
+  Menu,
   Shield,
   MessageSquare,
   CheckCircle2,
   Users,
   Clock,
+  X,
   ArrowUpRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -85,6 +87,7 @@ function Testimonial({ quote, author, role }: { quote: string; author: string; r
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-noise">
@@ -112,8 +115,9 @@ export default function Home() {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-2" data-testid="actions-header">
-            <Button variant="ghost" className="hidden md:inline-flex" asChild data-testid="button-call">
+          {/* Desktop actions */}
+          <div className="hidden md:flex items-center gap-2" data-testid="actions-header">
+            <Button variant="ghost" asChild data-testid="button-call">
               <Link href="/book">
                 Book a call
                 <ChevronRight className="ml-1 size-4" />
@@ -126,7 +130,41 @@ export default function Home() {
               </Link>
             </Button>
           </div>
+
+          {/* Mobile actions */}
+          <div className="flex md:hidden items-center gap-2">
+            <Button size="sm" asChild>
+              <Link href="/book">Book</Link>
+            </Button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="rounded-lg p-2 hover:bg-muted transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile nav drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t bg-background/95 backdrop-blur">
+            <nav className="container-page flex flex-col py-4 gap-1">
+              <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm hover:bg-muted transition-colors">Services</Link>
+              <a href="#process" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm hover:bg-muted transition-colors">Process</a>
+              <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm hover:bg-muted transition-colors">FAQ</a>
+              <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm hover:bg-muted transition-colors">Blog</Link>
+              <div className="mt-2 pt-2 border-t">
+                <Button className="w-full group" asChild>
+                  <Link href="/book" onClick={() => setMobileMenuOpen(false)}>
+                    Book a free consultation
+                    <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                </Button>
+              </div>
+            </nav>
+          </div>
+        )}
       </header>
 
       <main>
@@ -179,7 +217,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="relative overflow-hidden rounded-3xl"
+              className="relative overflow-hidden rounded-3xl aspect-[4/3]"
               data-testid="card-hero"
             >
               <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80" alt="Family financial planning meeting" className="h-full w-full object-cover" />
