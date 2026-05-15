@@ -13,7 +13,7 @@ export const blogPosts: BlogPost[] = [
     title: "Retirement planning: why starting now matters",
     summary: "The earlier you start planning for retirement, the more freedom you'll have later. Here's how to build a solid foundation at any stage of life.",
     date: "April 22, 2026",
-    image: "/Retirement.jpeg",
+    image: `${import.meta.env.BASE_URL}Retirement.jpeg`,
     content: `
 <h1>Retirement Planning: Why Starting Now Matters</h1>
 
@@ -55,7 +55,7 @@ export const blogPosts: BlogPost[] = [
     title: "Financial planning for growing families",
     summary: "A new child, a bigger home, changing income — growing families face unique financial pressures. Here's how to plan confidently through each transition.",
     date: "March 18, 2026",
-    image: "/Growing Families.jpeg",
+    image: `${import.meta.env.BASE_URL}Growing Families.jpeg`,
     content: `
 <h1>Financial Planning for Growing Families</h1>
 
@@ -97,7 +97,7 @@ export const blogPosts: BlogPost[] = [
     title: "Risk management: protecting what matters most",
     summary: "A strong financial plan isn't just about growing wealth — it's about protecting it. Understanding risk is the foundation of lasting financial security.",
     date: "February 5, 2026",
-    image: "/Risk Management.jpeg",
+    image: `${import.meta.env.BASE_URL}Risk Management.jpeg`,
     content: `
 <h1>Risk Management: Protecting What Matters Most</h1>
 

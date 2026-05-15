@@ -23,7 +23,7 @@ import team1 from "@/assets/team-meeting_1.jpg";
 import team2 from "@/assets/team-meeting_2.jpg";
 import team3 from "@/assets/team-meeting_3.jpg";
 import logoImage from "@/assets/logo-fineline.png";
-const profileImage = "/profile.png";
+const profileImage = `${import.meta.env.BASE_URL}profile.png`;
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
@@ -394,7 +394,7 @@ export default function Home() {
             </a>
           </div>
           <div className="grid gap-8 md:grid-cols-3" data-testid="blog-grid">
-            {[{ post: blogPosts[0], img: "/Retirement.jpeg" }, { post: blogPosts[1], img: "/Growing Families.jpeg" }, { post: blogPosts[2], img: "/Risk Management.jpeg" }].map(({ post, img }, idx) => (
+            {[{ post: blogPosts[0], img: `${import.meta.env.BASE_URL}Retirement.jpeg` }, { post: blogPosts[1], img: `${import.meta.env.BASE_URL}Growing Families.jpeg` }, { post: blogPosts[2], img: `${import.meta.env.BASE_URL}Risk Management.jpeg` }].map(({ post, img }, idx) => (
               <Link key={post.slug} href={`/blog/${post.slug}`}>
                 <Card className="rounded-3xl border bg-card/60 overflow-hidden shadow-sm group hover:shadow-xl transition-all cursor-pointer" data-testid={`blog-card-${idx + 1}`}>
                   <div className="aspect-video overflow-hidden" data-testid={`blog-image-${idx + 1}`}>
