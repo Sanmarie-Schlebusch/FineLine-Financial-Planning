@@ -16,13 +16,14 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { blogPosts } from "@/data/blogs";
 
 import heroImage from "@/assets/team-meeting_3.jpg";
 import team1 from "@/assets/team-meeting_1.jpg";
 import team2 from "@/assets/team-meeting_2.jpg";
 import team3 from "@/assets/team-meeting_3.jpg";
 import logoImage from "@/assets/logo-fineline.png";
-import profileImage from "@/assets/profile.png";
+const profileImage = "/profile.png";
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
@@ -38,7 +39,7 @@ function Stat({ label, value, testId }: { label: string; value: string; testId: 
   );
 }
 
-function ServiceCard({ icon, title, description, testId, href }: { icon: React.ReactNode; title: string; description: string; testId: string; href: string }) {
+function ServiceCard({ icon, title, description, testId, serviceSlug }: { icon: React.ReactNode; title: string; description: string; testId: string; serviceSlug: string }) {
   return (
     <div className="group relative rounded-3xl border bg-card/60 p-8 shadow-sm transition-all hover:shadow-2xl hover:-translate-y-1 hover:border-secondary/30" data-testid={testId}>
       <div className="flex flex-col h-full">
@@ -48,11 +49,11 @@ function ServiceCard({ icon, title, description, testId, href }: { icon: React.R
         <h3 className="headline mt-6 text-2xl font-bold group-hover:text-primary transition-colors" data-testid={`${testId}-title`}>{title}</h3>
         <p className="mt-4 text-muted-foreground leading-relaxed flex-grow" data-testid={`${testId}-description`}>{description}</p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button variant="outline" size="sm" className="rounded-full bg-background/50 hover:bg-secondary hover:text-secondary-foreground" data-testid={`${testId}-action-1`}>
-            Book Consultation
+          <Button variant="outline" size="sm" className="rounded-full bg-background/50 hover:bg-secondary hover:text-secondary-foreground" asChild data-testid={`${testId}-action-1`}>
+            <Link href="/book">Book Consultation</Link>
           </Button>
-          <Button variant="ghost" size="sm" className="rounded-full group/link" data-testid={`${testId}-action-2`}>
-            View Details <ArrowUpRight className="ml-1 size-3 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+          <Button variant="ghost" size="sm" className="rounded-full group/link" asChild data-testid={`${testId}-action-2`}>
+            <Link href={`/services/${serviceSlug}`}>View Details <ArrowUpRight className="ml-1 size-3 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" /></Link>
           </Button>
         </div>
       </div>
@@ -103,7 +104,7 @@ export default function Home() {
           </div>
 
           <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex" data-testid="nav-primary">
-            <a className="transition-colors hover:text-foreground" href="#services" data-testid="link-services">Services</a>
+            <Link className="transition-colors hover:text-foreground" href="/services" data-testid="link-services">Services</Link>
             <a className="transition-colors hover:text-foreground" href="#process" data-testid="link-process">Process</a>
             <a className="transition-colors hover:text-foreground" href="#faq" data-testid="link-faq">FAQ</a>
             <Link className="transition-colors hover:text-foreground" href="/blog" data-testid="link-blog">
@@ -112,13 +113,17 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center gap-2" data-testid="actions-header">
-            <Button variant="ghost" className="hidden md:inline-flex" data-testid="button-call">
-              Book a call
-              <ChevronRight className="ml-1 size-4" />
+            <Button variant="ghost" className="hidden md:inline-flex" asChild data-testid="button-call">
+              <Link href="/book">
+                Book a call
+                <ChevronRight className="ml-1 size-4" />
+              </Link>
             </Button>
-            <Button className="group" data-testid="button-cta-header">
-              Get a plan
-              <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+            <Button className="group" asChild data-testid="button-cta-header">
+              <Link href="/book">
+                Get a plan
+                <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </Button>
           </div>
         </div>
@@ -157,20 +162,17 @@ export default function Home() {
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row" data-testid="hero-ctas">
-                <Button size="lg" className="group" data-testid="button-hero-primary">
-                  Book a free intro
-                  <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+                <Button size="lg" className="group" asChild data-testid="button-hero-primary">
+                  <Link href="/book">
+                    Book a free intro
+                    <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="bg-card/60" data-testid="button-hero-secondary">
-                  View services
+                <Button size="lg" variant="outline" className="bg-card/60" asChild data-testid="button-hero-secondary">
+                  <Link href="/services">View services</Link>
                 </Button>
               </div>
 
-              <div className="mt-8 grid grid-cols-3 gap-3" data-testid="grid-hero-stats">
-                <Stat label="Discovery call" value="15 min" testId="stat-discovery" />
-                <Stat label="Plan delivery" value="2–3 wks" testId="stat-delivery" />
-                <Stat label="Ongoing reviews" value="Quarterly" testId="stat-reviews" />
-              </div>
             </motion.div>
 
             <motion.div
@@ -283,13 +285,13 @@ export default function Home() {
                 A clear plan across the pillars that matter.
               </h2>
             </div>
-            <a
-              href="#"
+            <Link
+              href="/services"
               className="hidden items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:flex"
               data-testid="link-services-all"
             >
               See all services <ChevronRight className="size-4" />
-            </a>
+            </Link>
           </div>
 
           <div className="mt-12 grid gap-8 md:grid-cols-3" data-testid="grid-features">
@@ -298,21 +300,21 @@ export default function Home() {
               title="Investment planning"
               description="Align your portfolio to your goals, time horizon, and comfort with risk—without overcomplication."
               testId="card-feature-investment"
-              href="#"
+              serviceSlug="investment-planning"
             />
             <ServiceCard
               icon={<Calendar className="size-6" />}
               title="Retirement planning"
               description="Understand where you stand, what to change, and how to stay on track with simple review cycles."
               testId="card-feature-retirement"
-              href="#"
+              serviceSlug="retirement-planning"
             />
             <ServiceCard
               icon={<Shield className="size-6" />}
               title="Risk & protection"
               description="Make sure the important things are protected—life cover, disability, and estate basics."
               testId="card-feature-risk"
-              href="#"
+              serviceSlug="risk-and-protection"
             />
           </div>
 
@@ -324,9 +326,9 @@ export default function Home() {
                   We translate complexity into a one-page summary and a simple action list—so you always know what to do next.
                 </p>
                 <div className="mt-5 flex flex-col gap-3 sm:flex-row" data-testid="callout-ctas">
-                  <Button className="group" data-testid="button-callout-primary">
-                    Start with a snapshot
-                    <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+                  <Button className="group" asChild data-testid="button-callout-primary">
+                    <Link href="/book">Start with a snapshot
+                    <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" /></Link>
                   </Button>
                   <Button variant="outline" className="bg-background/60" data-testid="button-callout-secondary">
                     Download brochure
@@ -392,30 +394,25 @@ export default function Home() {
             </a>
           </div>
           <div className="grid gap-8 md:grid-cols-3" data-testid="blog-grid">
-            {[1, 2, 3].map((i) => (
-              <Card key={i} className="rounded-3xl border bg-card/60 overflow-hidden shadow-sm group hover:shadow-xl transition-all" data-testid={`blog-card-${i}`}>
-                <div className="aspect-video bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center" data-testid={`blog-image-${i}`}>
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">📊</div>
-                    <div className="text-xs text-muted-foreground">[Featured Image {i}]</div>
+            {[{ post: blogPosts[0], img: "/Retirement.jpeg" }, { post: blogPosts[1], img: "/Growing Families.jpeg" }, { post: blogPosts[2], img: "/Risk Management.jpeg" }].map(({ post, img }, idx) => (
+              <Link key={post.slug} href={`/blog/${post.slug}`}>
+                <Card className="rounded-3xl border bg-card/60 overflow-hidden shadow-sm group hover:shadow-xl transition-all cursor-pointer" data-testid={`blog-card-${idx + 1}`}>
+                  <div className="aspect-video overflow-hidden" data-testid={`blog-image-${idx + 1}`}>
+                    <img src={img} alt={post.title} className="w-full h-full object-cover" />
                   </div>
-                </div>
-                <div className="p-6" data-testid={`blog-content-${i}`}>
-                  <h3 className="headline text-lg font-bold mb-3 group-hover:text-primary transition-colors" data-testid={`blog-title-${i}`}>
-                    {i === 1 && "Understanding Retirement Planning Basics"}
-                    {i === 2 && "Investment Strategies for Growing Families"}
-                    {i === 3 && "Risk Management: Protecting What Matters Most"}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4" data-testid={`blog-summary-${i}`}>
-                    {i === 1 && "Learn the fundamental principles of retirement planning and how to start building a secure future for yourself and your loved ones."}
-                    {i === 2 && "Discover investment approaches that balance growth potential with the stability needed for family financial planning."}
-                    {i === 3 && "Explore essential risk management strategies to protect your family's financial wellbeing against life's uncertainties."}
-                  </p>
-                  <Button variant="ghost" size="sm" className="p-0 h-auto font-semibold text-primary hover:text-primary/80" data-testid={`blog-read-more-${i}`}>
-                    Read More <ArrowUpRight className="ml-1 size-3" />
-                  </Button>
-                </div>
-              </Card>
+                  <div className="p-6" data-testid={`blog-content-${idx + 1}`}>
+                    <h3 className="headline text-lg font-bold mb-3 group-hover:text-primary transition-colors" data-testid={`blog-title-${idx + 1}`}>
+                      {post.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4" data-testid={`blog-summary-${idx + 1}`}>
+                      {post.summary}
+                    </p>
+                    <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary" data-testid={`blog-read-more-${idx + 1}`}>
+                      Read More <ArrowUpRight className="ml-1 size-3" />
+                    </span>
+                  </div>
+                </Card>
+              </Link>
             ))}
           </div>
         </section>
@@ -521,7 +518,7 @@ export default function Home() {
               </div>
 
               <div className="grid gap-3 text-sm text-muted-foreground md:justify-end" data-testid="footer-right">
-                <a href="#services" className="transition-colors hover:text-foreground" data-testid="link-footer-services">Services</a>
+                <Link href="/services" className="transition-colors hover:text-foreground" data-testid="link-footer-services">Services</Link>
                 <a href="#process" className="transition-colors hover:text-foreground" data-testid="link-footer-process">Process</a>
                 <a href="#faq" className="transition-colors hover:text-foreground" data-testid="link-footer-faq">FAQ</a>
                 <Link className="transition-colors hover:text-foreground" href="/blog" data-testid="link-footer-blog">Blog</Link>

@@ -7,35 +7,28 @@ import logoImage from "@/assets/logo-fineline.png";
 import heroImage from "@/assets/team-meeting_3.jpg";
 import { blogPosts } from "@/data/blogs";
 
-function BlogCard({ title, summary, date, slug }: { title: string; summary: string; date: string; slug: string }) {
+function BlogCard({ title, summary, date, slug, image }: { title: string; summary: string; date: string; slug: string; image?: string }) {
   return (
-    <Card className="group flex flex-col overflow-hidden">
-      <div className="relative h-44 w-full overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/20" />
-        <img
-          src={heroImage}
-          alt="Blog post preview"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-      <div className="flex flex-1 flex-col gap-3 p-6">
-        <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{date}</div>
-        <h3 className="headline text-xl font-semibold">{title}</h3>
-        <p className="text-sm leading-relaxed text-muted-foreground flex-1">{summary}</p>
-        <div className="mt-4">
-          <Button
-            variant="ghost"
-            className="w-full justify-between"
-            asChild
-          >
-            <Link href={`/blog/${slug}`} className="w-full flex items-center justify-between">
-              Read more
-              <ArrowRight className="size-4" />
-            </Link>
-          </Button>
+    <Link href={`/blog/${slug}`}>
+      <Card className="group flex flex-col overflow-hidden rounded-3xl border bg-card/60 shadow-sm hover:shadow-xl transition-all cursor-pointer h-full">
+        <div className="relative h-52 w-full overflow-hidden">
+          <img
+            src={image || heroImage}
+            alt={title}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
         </div>
-      </div>
-    </Card>
+        <div className="flex flex-1 flex-col gap-3 p-6">
+          <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{date}</div>
+          <h3 className="headline text-xl font-semibold group-hover:text-primary transition-colors leading-snug">{title}</h3>
+          <p className="text-sm leading-relaxed text-muted-foreground flex-1">{summary}</p>
+          <div className="mt-4 flex items-center gap-1.5 text-sm font-semibold text-primary">
+            Read more <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+          </div>
+        </div>
+      </Card>
+    </Link>
   );
 }
 
@@ -67,13 +60,17 @@ export default function Blog() {
           </nav>
 
           <div className="flex items-center gap-2" data-testid="actions-header">
-            <Button variant="ghost" className="hidden md:inline-flex" data-testid="button-call">
-              Book a call
-              <ArrowRight className="ml-1 size-4" />
+            <Button variant="ghost" className="hidden md:inline-flex" asChild data-testid="button-call">
+              <Link href="/book">
+                Book a call
+                <ArrowRight className="ml-1 size-4" />
+              </Link>
             </Button>
-            <Button className="group" data-testid="button-cta-header">
-              Get a plan
-              <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+            <Button className="group" asChild data-testid="button-cta-header">
+              <Link href="/book">
+                Get a plan
+                <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </Button>
           </div>
         </div>
@@ -136,6 +133,7 @@ export default function Blog() {
                 summary={post.summary}
                 date={post.date}
                 slug={post.slug}
+                image={post.image}
               />
             ))}
           </div>

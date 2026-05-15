@@ -7,6 +7,9 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/BlogPost";
+import BookPage from "@/pages/book";
+import ServicesPage from "@/pages/services";
+import ServiceDetail from "@/pages/ServiceDetail";
 import { useSyncExternalStore } from "react";
 
 const base = import.meta.env.BASE_URL || "/";
@@ -20,9 +23,9 @@ function useHistoryHook() {
 
   const getSnapshot = () => {
     const pathname = window.location.pathname;
-    // Remove base path from pathname
-    return pathname.startsWith(base) 
-      ? pathname.slice(base.length) || "/"
+    // Remove base path from pathname, preserving the leading "/"
+    return pathname.startsWith(base)
+      ? "/" + pathname.slice(base.length)
       : pathname;
   };
 
@@ -39,6 +42,9 @@ function Routes() {
       <Route path="/" component={Home} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogPost} />
+      <Route path="/book" component={BookPage} />
+      <Route path="/services" component={ServicesPage} />
+      <Route path="/services/:slug" component={ServiceDetail} />
       <Route component={NotFound} />
     </Switch>
   );

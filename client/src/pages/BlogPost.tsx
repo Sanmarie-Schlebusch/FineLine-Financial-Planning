@@ -38,13 +38,17 @@ export default function BlogPost() {
             </nav>
 
             <div className="flex items-center gap-2">
-              <Button variant="ghost" className="hidden md:inline-flex">
-                Book a call
-                <ArrowRight className="ml-1 size-4" />
+              <Button variant="ghost" className="hidden md:inline-flex" asChild>
+                <Link href="/book">
+                  Book a call
+                  <ArrowRight className="ml-1 size-4" />
+                </Link>
               </Button>
-              <Button className="group">
-                Get a plan
-                <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+              <Button className="group" asChild>
+                <Link href="/book">
+                  Get a plan
+                  <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
               </Button>
             </div>
           </div>
@@ -89,61 +93,70 @@ export default function BlogPost() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button variant="ghost" className="hidden md:inline-flex">
-              Book a call
-              <ArrowRight className="ml-1 size-4" />
+            <Button variant="ghost" className="hidden md:inline-flex" asChild>
+              <Link href="/book">
+                Book a call
+                <ArrowRight className="ml-1 size-4" />
+              </Link>
             </Button>
-            <Button className="group">
-              Get a plan
-              <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+            <Button className="group" asChild>
+              <Link href="/book">
+                Get a plan
+                <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </Button>
           </div>
         </div>
       </header>
 
       <main>
-        <section className="container-page pt-12 pb-16">
-          <div className="max-w-4xl mx-auto">
-            <Button variant="ghost" asChild className="mb-6">
-              <Link href="/blog" className="flex items-center gap-2">
-                <ArrowLeft className="size-4" />
-                Back to Blog
-              </Link>
-            </Button>
+        {/* Full-bleed hero image */}
+        {post.image && (
+          <div className="relative w-full h-72 md:h-[480px] overflow-hidden">
+            <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+          </div>
+        )}
 
-            <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-              {post.date}
+        <section className="container-page pb-16">
+          <div className="max-w-2xl mx-auto">
+            {/* Back link + meta */}
+            <div className="flex items-center gap-3 pt-8 mb-6">
+              <Button variant="ghost" size="sm" asChild className="-ml-2">
+                <Link href="/blog" className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground">
+                  <ArrowLeft className="size-3.5" />
+                  All articles
+                </Link>
+              </Button>
+              <span className="text-muted-foreground/40">·</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{post.date}</span>
             </div>
 
-            <h1 className="headline text-4xl md:text-5xl font-semibold leading-tight mb-6">
+            <h1 className="headline text-3xl md:text-4xl font-semibold leading-tight mb-4">
               {post.title}
             </h1>
 
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-base md:text-lg text-muted-foreground mb-10 leading-relaxed border-b border-border pb-10">
               {post.summary}
             </p>
 
-            {post.image && (
-              <div className="relative overflow-hidden rounded-3xl mb-8">
-                <img src={post.image} alt={post.title} className="w-full h-64 md:h-96 object-cover" />
-              </div>
-            )}
-
             <div
-              className="prose prose-lg max-w-none"
+              className="blog-prose"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
-            <div className="mt-12 pt-8 border-t">
-              <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
-                <div className="text-center sm:text-left">
-                  <p className="text-muted-foreground">Ready to discuss your financial goals?</p>
-                </div>
-                <Button className="group">
+            {/* CTA */}
+            <div className="mt-12 rounded-3xl bg-primary/5 border border-primary/10 p-8 text-center">
+              <div className="text-sm font-semibold uppercase tracking-wider text-primary mb-2">Ready to take the next step?</div>
+              <p className="text-muted-foreground mb-5 max-w-sm mx-auto text-sm leading-relaxed">
+                Talk to a financial planner who understands your situation and can build a plan around your goals.
+              </p>
+              <Button className="group" asChild>
+                <Link href="/book">
                   Book a consultation
                   <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
-                </Button>
-              </div>
+                </Link>
+              </Button>
             </div>
           </div>
         </section>
